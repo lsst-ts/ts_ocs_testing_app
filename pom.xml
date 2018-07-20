@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.lsst.ocs</groupId>
+    <artifactId>TestingApp</artifactId>
+    <version>0.1</version>
+    <name>TestingApp</name>
+
+    <licenses>
+        <license>
+            <name>LSST GPL</name>
+            <url>http://lsst-tsvm.lsst.org/LICENSE/</url>
+            <distribution>repo</distribution>
+            <comments>A business-friendly OSS license</comments>
+        </license>
+    </licenses>
+
+    <organization>
+        <name>LSST</name>
+        <url>http://lsst-tsvm.lsst.org</url>
+    </organization>
+
+    <developers>
+        <developer>
+            <id>jbuffill</id>
+            <name>James Buffill</name>
+            <email>jbuffill@lsst.org</email>
+            <url>http://www.lsstcorp.org</url>
+            <organization>LSST</organization>
+            <roles>
+                <role>developer</role>
+            </roles>
+            <timezone>-7</timezone>
+        </developer>
+    </developers>
+    
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        
+        <java.version>1.8</java.version>
+<!--        
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+-->        
+        <junit.version>4.12</junit.version>
+        <junit.jupiter.version>5.2.0</junit.jupiter.version>
+        <junit.platform.version>1.2.0</junit.platform.version>
+        <mockito.version>2.18.3</mockito.version>
+        <log4j.version>2.11.0</log4j.version>
+    </properties>
+
+    <dependencies>
+        
+        <!-- Add the Apache log4j dependencies -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Add the Reactive dependencies -->
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>2.1.12</version>
+        </dependency>
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjavafx</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        
+        <!-- Add the JUnit dependencies -->
+        <dependency>
+            <!-- Configuring a 'test' dependency on  JUnit 4 to support JUnit 4 based tests -->
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-launcher</artifactId>
+            <version>${junit.platform.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <!-- Configuring a 'test' dependency on  JUnit Jupiter API to support JUnit Jupiter based tests (i.e. JUnit 5) -->
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-params</artifactId>
+            <version>${junit.jupiter.version}</version>
+            <scope>test</scope>
+        </dependency>
+        
+        <!-- Add the Mockito dependencies -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-junit-jupiter</artifactId>
+            <version>${mockito.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Add the LSST CSCs dependencies -->
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_calibrationElectrometer</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_sedSpectrometer</artifactId>
+            <version>3.7.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.lsst.lsst-tsvm</groupId>
+            <artifactId>sal_atMonochromator</artifactId>
+            <version>3.7.0</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.jfxtras</groupId>
+            <artifactId>jmetro</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>ocsexec</finalName>
+        <plugins>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Compiler Plugin -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.0.0</version>
+                <configuration>
+                    <compilerArgs>
+                        <arg></arg>
+                    </compilerArgs>
+                </configuration>
+            </plugin>
+
+            <!-- Maven Assembly Plugin -->
+<!--            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.1.0</version>
+                <configuration>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.lsst.ocs.executive.ExecutiveFX</mainClass>
+                        </manifest>
+                    </archive>
+
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+-->            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                            <mainClass>org.lsst.testing.app.gui.fx.AppFX</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.1.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                        <configuration>
+<!--                            <shadedArtifactAttached>true</shadedArtifactAttached>
+                            <shadedClassifierName>super-jar</shadedClassifierName>
+-->                            
+<!--                            <filters>
+                                <filter>
+                                    <artifact>*:*</artifact>
+                                </filter>
+                            </filters>
+--> 
+                            <transformers>
+                                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                                    <mainClass>org.lsst.testing.app.gui.fx.AppFX</mainClass>
+                                </transformer>
+                            </transformers>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+                        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.0.2</version>
+                <executions>
+                    <execution>
+                        <id>copy-dependencies</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>copy-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/copyclasses</outputDirectory>
+                            <overWriteIfNewer>true</overWriteIfNewer>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+                    
+<!--                    
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.19.1</version>
+                <configuration>
+                    <shutdown>kill</shutdown>
+                    <skipTests>false</skipTests>
+                </configuration>
+            </plugin>
+-->
+            <!-- Declare the maven-surefire-plugin & configure the  dependencies of this plugin -->
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.21.0</version>
+                <configuration>
+                    <!-- Filtering by Test Class Name:                                                                                                                                 -->
+                    <!-- The Maven Surefire Plugin will scan for test classes whose fully qualified names match the following patterns -->
+                    <includes>
+                        <include>**/Test*.java</include>
+                        <include>**/*Test.java</include>
+                        <include>**/*Tests.java</include>
+                        <include>**/*TestCase.java</include>
+                    </includes>
+                    <!-- Filtering by Tags:                                                                                                                                                         -->
+                    <!-- The Maven Surefire Plugin can filter tests by tags or tag expressions using the following configuration properties -->
+                    <properties>
+                        <!-- 
+                                                <includeTags>fast</includeTags>
+                                                <excludeTags>slow</excludeTags> 
+                                                <includeTags>acceptance | !feature-a</includeTags>
+                                                <excludeTags>integration, regression</excludeTags> 
+                                                -->
+                    </properties>
+                </configuration>
+                <!-- The following are maven-surefire-plugin dependencies that will be added to the runtime classpath -->
+                <!-- register the individual JUnit 5 components with Maven surefire -->
+                <dependencies>
+                    <dependency>
+                        <!-- A provider for Maven Surefire that allows us to run tests -->
+                        <!-- that use either JUnit 3, 4 or 5 via: mvn test                       -->
+                        <groupId>org.junit.platform</groupId>
+                        <artifactId>junit-platform-surefire-provider</artifactId>
+                        <version>${junit.platform.version}</version>
+                    </dependency>
+                    <!-- Configure Test Engines -->
+                    <dependency>
+                        <!-- Adding the JUnit Jupiter test engine implementation to allow us to run tests that use JUnit 5 -->
+                        <groupId>org.junit.jupiter</groupId>
+                        <artifactId>junit-jupiter-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                    <dependency>
+                        <!-- Adding the JUnit vintage test engine implementation to allow us to run tests that use either JUnit 3 or 4 -->
+                        <groupId>org.junit.vintage</groupId>
+                        <artifactId>junit-vintage-engine</artifactId>
+                        <version>${junit.jupiter.version}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+            
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>ocs-maven2-public</id>
+            <name>OCS Maven 2 central repository</name>
+            <url>http://dev.lsstcorp.org:8081/nexus/content/groups/ocs-maven2-public/</url>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>ocs-maven2</id>
+            <name>OCS Maven2 Release repository</name>
+            <url>http://dev.lsstcorp.org:8081/nexus/content/repositories/ocs-maven2/</url>
+        </repository>
+        <snapshotRepository>
+            <id>ocs-maven2-snapshots</id>
+            <name>OCS Maven2 SNAPSHOTS repository</name>
+            <url>http://dev.lsstcorp.org:8081/nexus/content/repositories/ocs-maven2-snapshots/</url>
+        </snapshotRepository>
+        <site>
+            <id>ocs-maven2-site</id>
+            <name>OCS Maven2 site repository</name>
+            <url>dav:http://dev.lsstcorp.org:8081/nexus/content/sites/ocs-site/</url>
+        </site>
+    </distributionManagement>
+        
+</project>
