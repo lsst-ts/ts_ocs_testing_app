@@ -18,6 +18,7 @@ import org.lsst.testing.app.AppModel;
 import org.lsst.testing.app.CmdTask;
 import org.lsst.testing.app.Entity;
 import org.lsst.testing.app.gui.fx.*;
+import org.lsst.testing.app.salcomponent.CommandableSalComponent.*;
 import org.lsst.testing.app.salconnect.SalConnect;
 import org.lsst.testing.app.salservice.SalCmd;
 
@@ -26,12 +27,11 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
-import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -88,8 +88,6 @@ import javafx.scene.text.FontWeight;
  */
 public class PrimaryController implements Initializable {
 
-    @FXML private Menu homeMenu;
-
     @FXML private MenuItem primaryExit;
 
     @FXML private MenuButton elecStateMenu, monoStateMenu, sedsStateMenu;
@@ -122,11 +120,9 @@ public class PrimaryController implements Initializable {
     @FXML private TextField elecStateText, monoStateText, sedsStateText;
     private static final List<TextField> STATE_TEXT_LIST = new ArrayList<TextField>();
     
-    private static final Map<String, String> STATE_TEXT_MAP = new HashMap<>();
-
     // Reference to AppModel, the main Application Model class
     private AppModel _appModel;
-    
+
     /**
           * Initializes the controller class. 
           * <p>
@@ -152,14 +148,6 @@ public class PrimaryController implements Initializable {
         STATE_TEXT_LIST.add( sedsStateText );
         STATE_TEXT_LIST.add( elecStateText );
         
-        // ( cmdString key, State value )
-        STATE_TEXT_MAP.put( "enterControl", "STANDBY"  );
-        STATE_TEXT_MAP.put( "start"       , "DISABLED" );
-        STATE_TEXT_MAP.put( "enable"      , "ENABLED"  );
-        STATE_TEXT_MAP.put( "disable"     , "DISABLED" );
-        STATE_TEXT_MAP.put( "standby"     , "STANDBY"  );
-        STATE_TEXT_MAP.put( "exitControl" , "OFFLINE"  );
-
         primaryExit.setOnAction( e -> {
             
             Platform.exit();
@@ -199,10 +187,11 @@ public class PrimaryController implements Initializable {
                         Label stateLabel = STATE_LABEL_LIST.get( ndx );
                         Tooltip stateTooltip = STATE_TOOLTIP_LIST.get( ndx );
 
-                        Integer guiState =  entity._guiStateTransitionQ.take();
-                        if ( guiState >= 1 ) {
-                            
-                            stateText.setText( STATE_TEXT_MAP.get( cmdString ));
+                        int viewState =  entity._viewStateTransitionQ.take();
+            
+                        if ( viewState == entity.getNextStateValue() ) {
+
+                            stateText.setText( CSC_STATE_CMD.valueOf( cmdString ).toValueString() );
                             stateText.setStyle( "-fx-text-fill: darkcyan;" );
                             stateText.setFont( Font.font( "System", FontWeight.BOLD, 11 ));
 
@@ -253,21 +242,24 @@ public class PrimaryController implements Initializable {
 
     // Generic "State Transition" EventHandler for any CSC State pull-down menu items
     @FXML private void cscState( ActionEvent event ) throws Exception {
-
+        
         MenuItem mi = ( MenuItem ) event.getSource();
+
         String cmdString = mi.getText();
 
         // Grab the first 3 characters of the command Id string
-        Entity entity = /* e.g. entityELE */
-            _appModel.getEntityMap().get( mi.getId().substring( 0, 3 ));
+        Entity entity = _appModel.getEntityMap()
+                                 .get( mi.getId().substring( 0, 3 )); /* e.g. entityELE */
 
+        entity.setNextStateValue( CSC_STATE_CMD.valueOf( cmdString ).toValue() );
+        
         // State Pattern: context.request() [e.g. entitySCH.enterControl()]
-        ( new CmdTask( entity, cmdString )).call();
+        new CmdTask( entity, cmdString ).call();
         
         checkSummaryState( entity, cmdString );
     }
     
-    // Specific "Command Request" EventHandler for any CSC Command pull-down menu items
+    // Generic "Command Request" EventHandler for any CSC Command pull-down menu items
     @FXML private void cscCmd( ActionEvent event ) {
     
         MenuItem mi = ( MenuItem ) event.getSource();
@@ -277,9 +269,8 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd =  /* e.g. cscELE */
-            new SalCmd( _appModel.getCscMap().get( mi.getId().substring( 0, 3 )));
-        
+        SalCmd salCmd = new SalCmd( _appModel.getCscMap()
+                                             .get( mi.getId().substring( 0, 3 )));
         salCmd.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads
@@ -307,6 +298,7 @@ public class PrimaryController implements Initializable {
         Entity entity = _appModel.getEntityList().get( cscIndex /* e.g. entityMON */ );
         
         // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+        
         // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         //    Also, assign topic & topic arguments
         SalCmd salCmdCsc = new SalCmd( _appModel.getCscList().get( cscIndex ));
@@ -319,7 +311,7 @@ public class PrimaryController implements Initializable {
         // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();
         
-        checkSummaryState( entity, cmdString );        
+        //checkSummaryState( entity, cmdString );        
     }
     
     @FXML private void enterAllCSC( ActionEvent event ) throws Exception {
@@ -330,20 +322,25 @@ public class PrimaryController implements Initializable {
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
         
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        
         String cmdString = "enterControl";
-
+        
+        // 3a. Define Invoker w/ # of threads
         SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
 
         _appModel.getCscList().forEach( csc -> {
             
+            // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
+
+            // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+            //    Also, assign topic & topic arguments
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
+            
+            // 3b.Sset SalService request
             salConnectCsc.setSalService( salCmdCsc );
         });
+        
+        // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();
 
         _appModel.getEntityList().forEach( entity -> {
@@ -366,20 +363,25 @@ public class PrimaryController implements Initializable {
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
         
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        
         String cmdString = "start";
 
+        // 3a. Define Invoker w/ # of threads
         SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
 
         _appModel.getCscList().forEach( csc -> {
             
+            // 1. SalComponent (Receiver) previously defined: Executive.cscMON
+            
+            // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+            //    Also, assign topic & topic arguments
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
+
+            // 3b.Sset SalService request
             salConnectCsc.setSalService( salCmdCsc );
         });
+
+        // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();
 
         _appModel.getEntityList().forEach( entity -> {
@@ -402,20 +404,25 @@ public class PrimaryController implements Initializable {
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
         
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        
         String cmdString = "enable";
 
+        // 3a. Define Invoker w/ # of threads
         SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
 
         _appModel.getCscList().forEach( csc -> {
             
+            // 1. SalComponent (Receiver) previously defined: Executive.cscMON
+            
+            // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+            //    Also, assign topic & topic arguments
             SalCmd salCmdCsc = new SalCmd( csc );
             salCmdCsc.setTopic( cmdString );
+
+            // 3b.Sset SalService request
             salConnectCsc.setSalService( salCmdCsc );
         });
+
+        // 4. Invoker indirectly calls cmd->execute()
         salConnectCsc.connect();
 
         _appModel.getEntityList().forEach( entity -> {
@@ -437,10 +444,6 @@ public class PrimaryController implements Initializable {
                          .getMethodName() + "::" 
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
-        
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
         
         String cmdString = "disable";
 
@@ -474,10 +477,6 @@ public class PrimaryController implements Initializable {
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
         
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
-        
         String cmdString = "standby";
 
         SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
@@ -509,10 +508,6 @@ public class PrimaryController implements Initializable {
                          .getMethodName() + "::" 
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
-        
-        // 1. SalComponent (Receiver) previously defined: Executive.cscMTCS
-        // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        //    Also, assign topic & topic arguments
         
         String cmdString = "exitControl";
 

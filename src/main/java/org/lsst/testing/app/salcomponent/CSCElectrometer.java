@@ -242,8 +242,8 @@ public class CSCElectrometer implements CommandableSalComponent {
                 out.println( "=== Event SummaryState : " + event.summaryState );
                 
                 try {
-                    AppModel.getEntityMap().get( "ele" )._stateTransitionQ.put( event.summaryState );
-                    AppModel.getEntityMap().get( "ele" )._guiStateTransitionQ.put( event.summaryState );
+                    AppModel.getEntityMap().get( "ele" )._modelStateTransitionQ.put( event.summaryState );
+                    AppModel.getEntityMap().get( "ele" )._viewStateTransitionQ.put( event.summaryState );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
                 }

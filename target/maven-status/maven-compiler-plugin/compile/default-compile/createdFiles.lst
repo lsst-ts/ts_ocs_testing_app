@@ -29,6 +29,7 @@ org/lsst/testing/app/salcomponent/CSCSEDSpectrograph.class
 org/lsst/testing/app/gui/controllers/CaptureSpectImageController.class
 org/lsst/testing/app/gui/controllers/StartScanDtController.class
 org/lsst/testing/app/salservice/SalService.class
+org/lsst/testing/app/salcomponent/CommandableSalComponent$CSC_STATE_CMD.class
 org/lsst/testing/app/FaultState.class
 org/lsst/testing/app/AppModel$1.class
 org/lsst/testing/app/salservice/SalTelemetry.class
