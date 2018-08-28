@@ -47,6 +47,7 @@ public interface CommandableSalComponent extends DomainObject {
     
     public enum CSC_STATE {
 
+        // per: https://confluence.lsstcorp.org/display/SYSENG/SAL+constraints+and+recommendations -> section: State Enumeration
         DISABLED ( "DISABLED", 1 ), 
         ENABLED  ( "ENABLED" , 2 ), 
         FAULT    ( "FAULT"   , 3 ),
@@ -70,19 +71,12 @@ public interface CommandableSalComponent extends DomainObject {
     
     public enum CSC_STATE_CMD {
 
-//        enterControl ( "enterControl", 1 ), 
-//        start        ( "start"       , 2 ), 
-//        enable       ( "enable"      , 3 ),
-//        disable      ( "disable"     , 4 ), 
-//        standby      ( "standby"     , 5 ), 
-//        exitControl  ( "exitControl" , 6 ); 
-
-        enterControl ( "enterControl", CSC_STATE.STANDBY  ), 
-        start        ( "start"       , CSC_STATE.DISABLED ), 
-        enable       ( "enable"      , CSC_STATE.ENABLED  ),
-        disable      ( "disable"     , CSC_STATE.DISABLED ), 
-        standby      ( "standby"     , CSC_STATE.STANDBY  ), 
-        exitControl  ( "exitControl" , CSC_STATE.OFFLINE  ); 
+        enterControl ( "enterControl", CSC_STATE.STANDBY  ), // 5
+        start        ( "start"       , CSC_STATE.DISABLED ), // 1
+        enable       ( "enable"      , CSC_STATE.ENABLED  ), // 2
+        disable      ( "disable"     , CSC_STATE.DISABLED ), // 1
+        standby      ( "standby"     , CSC_STATE.STANDBY  ), // 5
+        exitControl  ( "exitControl" , CSC_STATE.OFFLINE  ); // 4
 
         private final String    _cscStateCmd;
         private final CSC_STATE _cscState;

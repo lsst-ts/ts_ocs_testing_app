@@ -31,20 +31,17 @@
             <items>
                   <Menu id="menuCSC" fx:id="menuCSC" mnemonicParsing="false" text="Create CSC...">
                     <items>
-                        <MenuItem id="menuitemCreateTCS" fx:id="menuitemCreateTCS" mnemonicParsing="false" onAction="#createCSC" text="TCS" />
-                        <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateCamera" mnemonicParsing="false" onAction="#createCSC" text="CAMERA" />
-                        <MenuItem id="menuitemCreateCamera" fx:id="menuitemCreateArchiver" mnemonicParsing="false" onAction="#createCSC" text="ARCHIVER" />
-                        <MenuItem id="menuitemCreateCatchupArchiver" fx:id="menuitemCreateCatchupArchiver" mnemonicParsing="false" onAction="#createCSC" text="CATCHUP ARCHIVER" />
-                        <MenuItem id="menuitemCreateProcessingCluster" fx:id="menuitemCreateProcessingCluster" mnemonicParsing="false" onAction="#createCSC" text="PROCESSING CLUSTER" />
-                        <MenuItem id="menuitemHeaderService" fx:id="menuitemHeaderService" mnemonicParsing="false" onAction="#createCSC" text="HEADER SERVICE" />
+                        <MenuItem id="monoCreate" fx:id="monoCreate" mnemonicParsing="false" onAction="#createCSC" text="Monochromator" />
+                        <MenuItem id="sedsCreate" fx:id="sedsCreate" mnemonicParsing="false" onAction="#createCSC" text="SED Spectrograph" />
+                        <MenuItem id="elecCreate" fx:id="elecCreate" mnemonicParsing="false" onAction="#createCSC" text="Calibration Electrometer" />
                     </items>
                   </Menu>
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll" mnemonicParsing="false" onAction="#enterAllCSC" text="Enter All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll1" mnemonicParsing="false" onAction="#startAllCSC" text="Start All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2" mnemonicParsing="false" onAction="#enableAllCSC" text="Enable All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll21" mnemonicParsing="false" onAction="#disableAllCSC" text="Disable All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll211" mnemonicParsing="false" onAction="#standbyAllCSC" text="Standby All CSCs" />
-                  <MenuItem id="menuitemCreateAll" fx:id="menuitemCreateAll2111" mnemonicParsing="false" onAction="#exitAllCSC" text="Exit All CSCs" />
+                  <MenuItem id="cscAllEnter" fx:id="cscAllEnter" mnemonicParsing="false" onAction="#cscStateAll" text="enterControl All CSCs" />
+                  <MenuItem id="cscAllStart" fx:id="cscAllStart" mnemonicParsing="false" onAction="#cscStateAll" text="start All CSCs" />
+                  <MenuItem id="cscAllEnable" fx:id="cscAllEnable" mnemonicParsing="false" onAction="#cscStateAll" text="enable All CSCs" />
+                  <MenuItem id="cscAllDisable" fx:id="cscAllDisable" mnemonicParsing="false" onAction="#cscStateAll" text="disable All CSCs" />
+                  <MenuItem id="cscAllStandby" fx:id="cscAllStandby" mnemonicParsing="false" onAction="#cscStateAll" text="standby All CSCs" />
+                  <MenuItem id="cscAllExit" fx:id="cscAllExit" mnemonicParsing="false" onAction="#cscStateAll" text="exitControl All CSCs" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

@@ -32,7 +32,7 @@ public class SalCmd extends SalService implements DomainObject {
         return "SalCmd" + "::" + super._topic + "::" + this._salComponent;
     }
     
-    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  CSCCcs) */
+    /* Command Pattern: Receiver IF (e.g. concrete receiver =>  _cscCCS) */
     CommandableSalComponent _salComponent;
     
     public SalCmd( CommandableSalComponent salComponent ) {
@@ -49,7 +49,7 @@ public class SalCmd extends SalService implements DomainObject {
                                   + Thread.currentThread().getId() );
         
         try {
-            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => cscMTcs.enterControl()] */
+            /* Command Pattern: receiverIF.action() [e.g. concrete rcvr => _cscMTCS.enterControl()] */
             _salComponent.getClass()
                          /* specify method & that it takes no (i.e. null) args */
                          //.getMethod( super._topic, new Class<?>[]{} )

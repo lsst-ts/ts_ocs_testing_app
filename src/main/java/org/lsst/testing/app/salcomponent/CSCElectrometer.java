@@ -20,6 +20,7 @@ import org.lsst.testing.app.AppModel;
 import static java.lang.System.out;
 import java.util.HashMap;
 import java.util.Map;
+import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>Auxiliary Camera Control System (ACCS) CSC</h2>
@@ -242,8 +243,13 @@ public class CSCElectrometer implements CommandableSalComponent {
                 out.println( "=== Event SummaryState : " + event.summaryState );
                 
                 try {
-                    AppModel.getEntityMap().get( "ele" )._modelStateTransitionQ.put( event.summaryState );
-                    AppModel.getEntityMap().get( "ele" )._viewStateTransitionQ.put( event.summaryState );
+                    AppModel.getEntityMap()
+                            .get( EntityType.ELECTROMETER.toString() )
+                            ._modelStateTransitionQ.put( event.summaryState );
+                    
+                    AppModel.getEntityMap()
+                            .get( EntityType.ELECTROMETER.toString() )
+                            ._viewStateTransitionQ.put( event.summaryState );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
                 }

@@ -20,6 +20,7 @@ import org.lsst.testing.app.AppModel;
 import static java.lang.System.out;
 import java.util.HashMap;
 import java.util.Map;
+import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>Calibration SED Spectrometer CSC</h2>
@@ -314,8 +315,13 @@ public class CSCSEDSpectrograph implements CommandableSalComponent {
                 out.println( "=== Event SummaryState : " + event.summaryState );
                 
                 try {
-                    AppModel.getEntityMap().get( "sed" )._modelStateTransitionQ.put( event.summaryState );
-                    AppModel.getEntityMap().get( "sed" )._viewStateTransitionQ.put( event.summaryState );
+                    AppModel.getEntityMap()
+                            .get( EntityType.SEDSPECTROGRAPH.toString() )
+                            ._modelStateTransitionQ.put( event.summaryState );
+                    
+                    AppModel.getEntityMap()
+                            .get( EntityType.SEDSPECTROGRAPH.toString() )
+                            ._viewStateTransitionQ.put( event.summaryState );
                 } catch ( InterruptedException ie ) {
                     ie.printStackTrace( out.printf( "GOOD SummaryState" ));
                 }

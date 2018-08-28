@@ -31,7 +31,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -90,6 +89,11 @@ public class PrimaryController implements Initializable {
 
     @FXML private MenuItem primaryExit;
 
+    @FXML private MenuItem cscAllEnter, cscAllStart, cscAllEnable,
+                           cscAllDisable, cscAllStandby, cscAllExit;
+
+    @FXML private MenuItem monoCreate, sedsCreate, elecCreate;
+
     @FXML private MenuButton elecStateMenu, monoStateMenu, sedsStateMenu;
 
     @FXML private MenuItem elecEnter, elecStart, elecEnable, elecDisable, elecStandby, elecExit;
@@ -108,9 +112,6 @@ public class PrimaryController implements Initializable {
 
     @FXML private MenuItem setMonoMenui, setSpectMenui, setScanMenui;
         
-    @FXML private MenuItem menuitemCreateELEC, menuitemCreateMONO, 
-                           menuitemCreateSEDS, menuitemCreateAll;
-
     @FXML private Label elecLabel, monoLabel, sedsLabel;
     private static final List<Label> STATE_LABEL_LIST = new ArrayList<Label>();
 
@@ -314,7 +315,7 @@ public class PrimaryController implements Initializable {
         //checkSummaryState( entity, cmdString );        
     }
     
-    @FXML private void enterAllCSC( ActionEvent event ) throws Exception {
+    @FXML private void cscStateAll( ActionEvent event ) throws Exception {
 
         out.print( Thread.currentThread()
                          .getStackTrace()[1]
@@ -322,7 +323,9 @@ public class PrimaryController implements Initializable {
                                           + "Threadid: "
                                           + Thread.currentThread().getId() + "\n" );
         
-        String cmdString = "enterControl";
+        MenuItem mi = ( MenuItem ) event.getSource();
+        String cmdString = mi.getText()
+                             .split( " " )[0]; // split by space & grab 1st word
         
         // 3a. Define Invoker w/ # of threads
         SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
@@ -341,184 +344,6 @@ public class PrimaryController implements Initializable {
         });
         
         // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();
-
-        _appModel.getEntityList().forEach( entity -> {
-            
-            try {
-                checkSummaryState( entity, cmdString );
-            } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf(
-                    "InterruptedException from  PrimaryController.createAllCSC()" ));
-                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
-            }
-        });
-    }
-    
-    @FXML private void startAllCSC( ActionEvent event ) throws Exception {
-
-        out.print( Thread.currentThread()
-                         .getStackTrace()[1]
-                         .getMethodName() + "::" 
-                                          + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
-        
-        String cmdString = "start";
-
-        // 3a. Define Invoker w/ # of threads
-        SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
-
-        _appModel.getCscList().forEach( csc -> {
-            
-            // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-            
-            // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-            //    Also, assign topic & topic arguments
-            SalCmd salCmdCsc = new SalCmd( csc );
-            salCmdCsc.setTopic( cmdString );
-
-            // 3b.Sset SalService request
-            salConnectCsc.setSalService( salCmdCsc );
-        });
-
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();
-
-        _appModel.getEntityList().forEach( entity -> {
-            
-            try {
-                checkSummaryState( entity, cmdString );
-            } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf(
-                    "InterruptedException from  PrimaryController.createAllCSC()" ));
-                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
-            }
-        });
-    }
-
-    @FXML private void enableAllCSC( ActionEvent event ) throws Exception {
-
-        out.print( Thread.currentThread()
-                         .getStackTrace()[1]
-                         .getMethodName() + "::" 
-                                          + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
-        
-        String cmdString = "enable";
-
-        // 3a. Define Invoker w/ # of threads
-        SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
-
-        _appModel.getCscList().forEach( csc -> {
-            
-            // 1. SalComponent (Receiver) previously defined: Executive.cscMON
-            
-            // 2. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-            //    Also, assign topic & topic arguments
-            SalCmd salCmdCsc = new SalCmd( csc );
-            salCmdCsc.setTopic( cmdString );
-
-            // 3b.Sset SalService request
-            salConnectCsc.setSalService( salCmdCsc );
-        });
-
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnectCsc.connect();
-
-        _appModel.getEntityList().forEach( entity -> {
-            
-            try {
-                checkSummaryState( entity, cmdString );
-            } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf(
-                    "InterruptedException from  PrimaryController.createAllCSC()" ));
-                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
-            }
-        });
-    }
-    
-    @FXML private void disableAllCSC( ActionEvent event ) throws Exception {
-
-        out.print( Thread.currentThread()
-                         .getStackTrace()[1]
-                         .getMethodName() + "::" 
-                                          + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
-        
-        String cmdString = "disable";
-
-        SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
-        
-        _appModel.getCscList().forEach( csc -> {
-            
-            SalCmd salCmdCsc = new SalCmd( csc );
-            salCmdCsc.setTopic( cmdString );
-            salConnectCsc.setSalService( salCmdCsc );
-        });
-        salConnectCsc.connect();
-
-        _appModel.getEntityList().forEach( entity -> {
-            
-            try {
-                checkSummaryState( entity, cmdString );
-            } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf(
-                    "InterruptedException from  PrimaryController.createAllCSC()" ));
-                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
-            }
-        });
-    }
-    
-    @FXML private void standbyAllCSC( ActionEvent event ) throws Exception {
-
-        out.print( Thread.currentThread()
-                         .getStackTrace()[1]
-                         .getMethodName() + "::" 
-                                          + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
-        
-        String cmdString = "standby";
-
-        SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
-
-        _appModel.getCscList().forEach( csc -> {
-            
-            SalCmd salCmdCsc = new SalCmd( csc );
-            salCmdCsc.setTopic( cmdString );
-            salConnectCsc.setSalService( salCmdCsc );
-        });
-        salConnectCsc.connect();
-
-        _appModel.getEntityList().forEach( entity -> {
-            
-            try {
-                checkSummaryState( entity, cmdString );
-            } catch ( Exception ex ) {
-                ex.printStackTrace( out.printf(
-                    "InterruptedException from  PrimaryController.createAllCSC()" ));
-                //Logger.getLogger( PrimaryController.class.getName() ).log( Level.SEVERE, null, ex );
-            }
-        });
-    }
-    
-    @FXML private void exitAllCSC( ActionEvent event ) throws Exception {
-
-        out.print( Thread.currentThread()
-                         .getStackTrace()[1]
-                         .getMethodName() + "::" 
-                                          + "Threadid: "
-                                          + Thread.currentThread().getId() + "\n" );
-        
-        String cmdString = "exitControl";
-
-        SalConnect salConnectCsc = new SalConnect( _appModel.getCscList().size() );
-        
-        _appModel.getCscList().forEach( csc -> {
-            
-            SalCmd salCmdCsc = new SalCmd( csc );
-            salCmdCsc.setTopic( cmdString );
-            salConnectCsc.setSalService( salCmdCsc );
-        });
         salConnectCsc.connect();
 
         _appModel.getEntityList().forEach( entity -> {

@@ -52,7 +52,7 @@ public class AppFX extends Application {
         String fxmlFile = "/fxml/primaryFXML.fxml";
         FXMLLoader loader = new FXMLLoader();
         Parent rootBorderPane = (Parent) loader.load( 
-            getClass().getResourceAsStream( fxmlFile ) );
+            getClass().getResourceAsStream( fxmlFile ));
 
         // Give the controller access to the main app.
         controller = loader.getController();

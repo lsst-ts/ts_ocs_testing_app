@@ -17,10 +17,7 @@ package org.lsst.testing.app;
 import static java.lang.System.out;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.Objects;
-import java.util.concurrent.TimeUnit;
 
-import javafx.application.Platform;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 

@@ -8,6 +8,8 @@ package org.lsst.testing.app.gui.controllers;
 
 import org.lsst.testing.app.AppModel;
 import org.lsst.testing.app.gui.fx.StartScanDtFX;
+import org.lsst.testing.app.salconnect.SalConnect;
+import org.lsst.testing.app.salservice.SalCmd;
 
 import java.net.URL;
 import java.util.Map;
@@ -19,8 +21,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.TextField;
-import org.lsst.testing.app.salconnect.SalConnect;
-import org.lsst.testing.app.salservice.SalCmd;
+import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>FXML StartScanDt Controller</h2>
@@ -83,7 +84,7 @@ public class StartScanDtController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( "ele" ));
+        SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( EntityType.ELECTROMETER.toString() ));
         salCmd.setTopic( "StartScanDt" );
         salCmd.setTopicArgs( argsMap.values().toArray() );
         

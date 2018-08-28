@@ -8,6 +8,8 @@ package org.lsst.testing.app.gui.controllers;
 
 import org.lsst.testing.app.AppModel;
 import org.lsst.testing.app.gui.fx.CaptureSpectImageFX;
+import org.lsst.testing.app.salconnect.SalConnect;
+import org.lsst.testing.app.salservice.SalCmd;
 
 import java.net.URL;
 import java.util.Map;
@@ -22,8 +24,7 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollBar;
 import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.TextField;
-import org.lsst.testing.app.salconnect.SalConnect;
-import org.lsst.testing.app.salservice.SalCmd;
+import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>FXML CaptureSpectImage Controller</h2>
@@ -106,7 +107,7 @@ public class CaptureSpectImageController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( "sed" ));
+        SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( EntityType.SEDSPECTROGRAPH.toString() ));
         salCmd.setTopic( "captureSpectImage" );
         salCmd.setTopicArgs( argsMap.values().toArray() );
         

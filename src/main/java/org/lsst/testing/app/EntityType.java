@@ -21,18 +21,25 @@ package org.lsst.testing.app;
  */
 public enum EntityType {
     
-    OCS               ( "OCS"               ),
-    SEQUENCER         ( "SEQUENCER"         ),
-    MTCS              ( "MTCS"              ),
-    CCS               ( "CCS"               ),
-    ARCHIVER          ( "ARCHIVER"          ),
-    CATCHUPARCHIVER   ( "CATCHUPARCHIVER"   ),
-    PROCESSINGCLUSTER ( "PROCESSINGCLUSTER" ),
-    HEADERSERVICE     ( "HEADERSERVICE"     ),
+    ARCHIVER          ( "ARCHIVER"         ),
+    CATCHUPARCHIVER   ( "CATCHUPARCHIVER"  ),
+    CCS               ( "CCS"              ),
+    HEADERSERVICE     ( "HEADERSERVICE"    ),
+    MTCS              ( "MTCS"             ),
+    PROMPTPROCESSING  ( "PROMPTPROCESSING" ),
+    OCS               ( "OCS"              ),
+    SCHEDULER         ( "SCHEDULER"        ),
+    SEQUENCER         ( "SEQUENCER"        ),
 
-    ATCS              ( "ATCS"              ),
-    ACCS              ( "ACCS"              ),
-    AHEADERSERVICE    ( "AHEADERSERVICE"    );
+    AARCHIVER         ( "AARCHIVER"        ),
+    ACCS              ( "ACCS"             ),
+    AHEADERSERVICE    ( "AHEADERSERVICE"   ),
+    ASCHEDULER        ( "ASCHEDULER"       ),
+    ATCS              ( "ATCS"             ),
+    
+    ELECTROMETER      ( "ELECTROMETER"     ),
+    MONOCHROMATOR     ( "MONOCHROMATOR"    ),
+    SEDSPECTROGRAPH   ( "SEDSPECTROGRAPH"  );
     
     private final String _etype;
     
