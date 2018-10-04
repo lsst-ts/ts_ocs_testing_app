@@ -94,8 +94,6 @@ public interface CommandableSalComponent extends DomainObject {
         public String toValueString() { return this._cscState.toString(); }
     }
     
-    
-    
     public enum CSC_STATUS {
 
         SAL__SLOWPOLL     (  1 ), 

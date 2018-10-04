@@ -76,12 +76,12 @@
                                     </Label>
                                     <MenuButton id="monoStateMenu" fx:id="monoStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                        <items>
-                                          <MenuItem fx:id="monoEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                          <MenuItem fx:id="monoStart" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                          <MenuItem fx:id="monoEnable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                          <MenuItem fx:id="monoDisable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                          <MenuItem fx:id="monoStandby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                          <MenuItem fx:id="monoExit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                          <MenuItem fx:id="mono_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                          <MenuItem fx:id="mono_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                          <MenuItem fx:id="mono_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                          <MenuItem fx:id="mono_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                          <MenuItem fx:id="mono_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                          <MenuItem fx:id="mono_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
                                        </items>
                                        <font>
                                           <Font size="11.0" />
@@ -163,12 +163,12 @@
                                     </Label>
                                     <MenuButton id="sedsStateMenu" fx:id="sedsStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                        <items>
-                                          <MenuItem id="sedsEnter" fx:id="sedsEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                          <MenuItem id="sedsStart" fx:id="sedsStart" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                          <MenuItem id="sedsEnable" fx:id="sedsEnable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                          <MenuItem id="sedsDisable" fx:id="sedsDisable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                          <MenuItem id="sedsStandby" fx:id="sedsStandby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                          <MenuItem id="sedsExit" fx:id="sedsExit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                          <MenuItem id="seds_Enter" fx:id="sedsEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                          <MenuItem id="seds_Start" fx:id="sedsStart" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                          <MenuItem id="seds_Enable" fx:id="sedsEnable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                          <MenuItem id="seds_Disable" fx:id="sedsDisable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                          <MenuItem id="seds_Standby" fx:id="sedsStandby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                          <MenuItem id="seds_Exit" fx:id="sedsExit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
                                        </items>
                                        <font>
                                           <Font size="11.0" />
@@ -244,12 +244,12 @@
                                     </Label>
                                     <MenuButton id="elecStateMenu" fx:id="eleccStateMenu" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="22.0" prefWidth="174.0" text="StateTransition">
                                        <items>
-                                          <MenuItem fx:id="elecEnter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
-                                          <MenuItem fx:id="elecStart" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
-                                          <MenuItem fx:id="elecEnable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
-                                          <MenuItem fx:id="elecDisable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
-                                          <MenuItem fx:id="elecStandby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
-                                          <MenuItem fx:id="elecExit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
+                                          <MenuItem fx:id="elec_Enter" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enterControl" />
+                                          <MenuItem fx:id="elec_Start" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="start" />
+                                          <MenuItem fx:id="elec_Enable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="enable" />
+                                          <MenuItem fx:id="elec_Disable" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="disable" />
+                                          <MenuItem fx:id="elec_Standby" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="standby" />
+                                          <MenuItem fx:id="elec_Exit" mnemonicParsing="false" onAction="#cscState" style="-fx-font-size: 11;" text="exitControl" />
                                        </items>
                                        <font>
                                           <Font size="11.0" />

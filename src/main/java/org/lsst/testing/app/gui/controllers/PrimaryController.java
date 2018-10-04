@@ -121,6 +121,20 @@ public class PrimaryController implements Initializable {
     @FXML private TextField elecStateText, monoStateText, sedsStateText;
     private static final List<TextField> STATE_TEXT_LIST = new ArrayList<TextField>();
     
+    {
+        STATE_LABEL_LIST.add( monoLabel );
+        STATE_LABEL_LIST.add( sedsLabel );
+        STATE_LABEL_LIST.add( elecLabel );
+
+        STATE_TOOLTIP_LIST.add( monoTooltip );
+        STATE_TOOLTIP_LIST.add( sedsTooltip );
+        STATE_TOOLTIP_LIST.add( elecTooltip );
+
+        STATE_TEXT_LIST.add( monoStateText );
+        STATE_TEXT_LIST.add( sedsStateText );
+        STATE_TEXT_LIST.add( elecStateText );
+    }
+    
     // Reference to AppModel, the main Application Model class
     private AppModel _appModel;
 
@@ -136,18 +150,6 @@ public class PrimaryController implements Initializable {
 
         ExecutorService es = Executors.newCachedThreadPool();
         _appModel.cEventTask_SUMSTATE.forEach( es::submit );
-        
-        STATE_LABEL_LIST.add( monoLabel );
-        STATE_LABEL_LIST.add( sedsLabel );
-        STATE_LABEL_LIST.add( elecLabel );
-
-        STATE_TOOLTIP_LIST.add( monoTooltip );
-        STATE_TOOLTIP_LIST.add( sedsTooltip );
-        STATE_TOOLTIP_LIST.add( elecTooltip );
-
-        STATE_TEXT_LIST.add( monoStateText );
-        STATE_TEXT_LIST.add( sedsStateText );
-        STATE_TEXT_LIST.add( elecStateText );
         
         primaryExit.setOnAction( e -> {
             
@@ -249,8 +251,8 @@ public class PrimaryController implements Initializable {
         String cmdString = mi.getText();
 
         // Grab the first 3 characters of the command Id string
-        Entity entity = _appModel.getEntityMap()
-                                 .get( mi.getId().substring( 0, 3 )); /* e.g. entityELE */
+        Entity entity = _appModel.getEntityMap()    /* e.g. entityELE */
+                                 .get( mi.getId().split( "_" )[0] ); // split by underscore & grab 1st word
 
         entity.setNextStateValue( CSC_STATE_CMD.valueOf( cmdString ).toValue() );
         
@@ -270,8 +272,8 @@ public class PrimaryController implements Initializable {
         
         // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
         // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd = new SalCmd( _appModel.getCscMap()
-                                             .get( mi.getId().substring( 0, 3 )));
+        SalCmd salCmd = new SalCmd( _appModel.getCscMap()   /* e.g. cscELE */
+                                             .get( mi.getId().split( "_" )[0] )); // split by underscore & grab 1st word
         salCmd.setTopic( cmdString );
 
         // 3a. Define Invoker w/ # of threads

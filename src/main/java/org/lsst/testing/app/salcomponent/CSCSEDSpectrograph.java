@@ -16,11 +16,11 @@ package org.lsst.testing.app.salcomponent;
 
 import org.lsst.sal.SAL_sedSpectrometer;
 import org.lsst.testing.app.AppModel;
+import org.lsst.testing.app.EntityType;
 
 import static java.lang.System.out;
 import java.util.HashMap;
 import java.util.Map;
-import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>Calibration SED Spectrometer CSC</h2>

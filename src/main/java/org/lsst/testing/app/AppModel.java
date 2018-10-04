@@ -49,9 +49,9 @@ public class AppModel {
             Collections.unmodifiableMap( new HashMap<String, CommandableSalComponent>() {
             {
                 // (CSC key, CSC value)
-                put( EntityType.MONOCHROMATOR.toString()  , _cscMON );
-                put( EntityType.SEDSPECTROGRAPH.toString(), _cscSED );
-                put( EntityType.ELECTROMETER.toString()   , _cscELE );
+                put( EntityType.MONOCHROMATOR.toStringShort()  , _cscMON );
+                put( EntityType.SEDSPECTROGRAPH.toStringShort(), _cscSED );
+                put( EntityType.ELECTROMETER.toStringShort()   , _cscELE );
             }
         });
     }  
@@ -84,9 +84,9 @@ public class AppModel {
             Collections.unmodifiableMap( new HashMap<String, Entity>() {
             {
                 // (Entity key, Entity value)
-                put( EntityType.MONOCHROMATOR.toString()  , _entityMON );
-                put( EntityType.SEDSPECTROGRAPH.toString(), _entitySED );
-                put( EntityType.ELECTROMETER.toString()   , _entityELE );
+                put( EntityType.MONOCHROMATOR.toStringShort()  , _entityMON );
+                put( EntityType.SEDSPECTROGRAPH.toStringShort(), _entitySED );
+                put( EntityType.ELECTROMETER.toStringShort()   , _entityELE );
             }
         });
     }  
