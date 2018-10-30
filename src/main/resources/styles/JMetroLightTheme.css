@@ -68,8 +68,8 @@
 
 .button:pressed, .button:default:hover:pressed
 {
-  -fx-background-color: black;
-  -fx-text-fill: white;
+    -fx-background-color: black;
+    -fx-text-fill: white;
 }
 
 .button:focused
@@ -247,15 +247,15 @@
 }
 
 .radio-button > .radio  {
-   -fx-background-color: transparent;
-   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-background-insets: 0;
 
-   -fx-border-radius: 1.0em;
-   -fx-border-color: #bababa;
-   -fx-border-width: 2px;
+    -fx-border-radius: 1.0em;
+    -fx-border-color: #bababa;
+    -fx-border-width: 2px;
 
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
+    -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
 }
 
 .radio-button > .radio > .dot {
@@ -286,17 +286,17 @@
 
 .radio-button:focused > .radio
 {
-   -fx-background-color: transparent;
-   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-background-insets: 0;
 
-   -fx-border-style: solid, segments(1, 2);
-   -fx-border-radius: 1.0em, 0;
-   -fx-border-color: #bababa, black;
-   -fx-border-insets: 0px, -2px;
-   -fx-border-width: 2px, 1px;
+    -fx-border-style: solid, segments(1, 2);
+    -fx-border-radius: 1.0em, 0;
+    -fx-border-color: #bababa, black;
+    -fx-border-insets: 0px, -2px;
+    -fx-border-width: 2px, 1px;
 
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
+    -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
 }
 
 .radio-button:focused:hover > .radio
@@ -377,8 +377,8 @@
 }
 
 .menu-item:focused {
-     -fx-background: -fx-accent;
-     -fx-background-color: #dedede;
+    -fx-background: -fx-accent;
+    -fx-background-color: #dedede;
 }
 
 .menu-item:pressed
@@ -641,7 +641,7 @@
 }
 
 /*.text-input > Pane{*/
-    /*-fx-padding: 0.333333em 0.583em 0.333333em 0em; *//* 4 7 4 0 */
+/*-fx-padding: 0.333333em 0.583em 0.333333em 0em; *//* 4 7 4 0 */
 /*}*/
 
 .text-input > .right-button{

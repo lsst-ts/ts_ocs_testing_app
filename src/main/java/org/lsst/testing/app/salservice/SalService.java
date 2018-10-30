@@ -16,17 +16,21 @@ package org.lsst.testing.app.salservice;
 
 /**
  * <h2>SAL Service</h2>
- *
+ * <p>
  * {@code SalService} is the Command Interface class in the command pattern
  */
 public abstract class SalService {
 
-    protected String _topic;
-    protected Object[] _topicArgs;
+  protected String _topic;
+  protected Object[] _topicArgs;
 
-    public void setTopic( String topic ) { _topic = topic; }
+  public void setTopic( String topic ) {
+    _topic = topic;
+  }
 
-    public void setTopicArgs( Object[] topicArgs ) { _topicArgs = topicArgs; }
+  public void setTopicArgs( Object[] topicArgs ) {
+    _topicArgs = topicArgs;
+  }
 
-    public abstract void execute();
+  public abstract void execute();
 }

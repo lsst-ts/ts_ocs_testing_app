@@ -22,63 +22,68 @@ import javafx.stage.Stage;
 
 /**
  * <h2>Capture Spectral Image FX</h2>
- *
- * The {@code CaptureSpectImageFX} class is the entry point for the Capture SED Spectrometer Image window.
+ * <p>
+ * The {@code CaptureSpectImageFX} class is the entry point for the Capture SED Spectrometer Image
+ * window.
  */
 public final class CaptureSpectImageFX {
-    
-    private static volatile CaptureSpectImageFX _instance = null;
 
-    public static CaptureSpectImageFX getInstance() throws Exception {
-        
-        // make local copy
-        CaptureSpectImageFX instance = CaptureSpectImageFX._instance;
-        
-    	// Double-check locking pattern
-    	if ( instance == null ) {   // 1st Check
+  private static volatile CaptureSpectImageFX _instance = null;
 
-            // Thread safe
-            synchronized( CaptureSpectImageFX.class ) {
-                
-                instance = CaptureSpectImageFX._instance;
-                
-                if ( instance == null ) {   // 2nd Check
+  public static CaptureSpectImageFX getInstance() throws Exception {
 
-                    CaptureSpectImageFX._instance = instance = new CaptureSpectImageFX();
-                }
-            }
-    	}
-        
-        return CaptureSpectImageFX._instance;
+    // make local copy
+    CaptureSpectImageFX instance = CaptureSpectImageFX._instance;
+
+    // Double-check locking pattern
+    if ( instance == null ) {   // 1st Check
+
+      // Thread safe
+      synchronized ( CaptureSpectImageFX.class ) {
+
+        instance = CaptureSpectImageFX._instance;
+
+        if ( instance == null ) {   // 2nd Check
+
+          CaptureSpectImageFX._instance = instance = new CaptureSpectImageFX();
+        }
+      }
     }
 
-    private static FXMLLoader _loader;
-    private static Parent     _root;
-    private static Stage      _stage;
-    private static String     _fxmlFile;
+    return CaptureSpectImageFX._instance;
+  }
 
-    // private Cstr so no direct instances can be made    
-    private CaptureSpectImageFX() throws Exception {
+  private static FXMLLoader _loader;
+  private static Parent _root;
+  private static Stage _stage;
+  private static String _fxmlFile;
 
-    	// Prevent forming new instance via reflection API
-    	if ( _instance != null ) {
-            
-            throw new RuntimeException(
-                "Use getInstance () method to get the singleton instance of this class" );
-    	}
-    
-        _fxmlFile = "/fxml/captureSpectImageFXML.fxml";
-        _loader = new FXMLLoader();
-        _root = (Parent) _loader.load( getClass().getResourceAsStream( _fxmlFile ));
+  // private Cstr so no direct instances can be made    
+  private CaptureSpectImageFX() throws Exception {
 
-        _stage = new Stage();
-        _stage.initModality( Modality.WINDOW_MODAL );
-        _stage.setScene( new Scene( _root ));
-        _stage.setTitle( "Capture SED Spectrometer Image" );
-        _stage.setResizable( false );
+    // Prevent forming new instance via reflection API
+    if ( _instance != null ) {
+
+      throw new RuntimeException(
+          "Use getInstance () method to get the singleton instance of this class" );
     }
-    
-    public static void startStage() { _stage.show();  }
-    
-    public static void closeStage() { _stage.close(); }
+
+    _fxmlFile = "/fxml/captureSpectImageFXML.fxml";
+    _loader = new FXMLLoader();
+    _root = (Parent) _loader.load( getClass().getResourceAsStream( _fxmlFile ) );
+
+    _stage = new Stage();
+    _stage.initModality( Modality.WINDOW_MODAL );
+    _stage.setScene( new Scene( _root ) );
+    _stage.setTitle( "Capture SED Spectrometer Image" );
+    _stage.setResizable( false );
+  }
+
+  public static void startStage() {
+    _stage.show();
+  }
+
+  public static void closeStage() {
+    _stage.close();
+  }
 }

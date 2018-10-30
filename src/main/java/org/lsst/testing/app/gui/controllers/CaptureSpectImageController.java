@@ -28,100 +28,127 @@ import org.lsst.testing.app.EntityType;
 
 /**
  * <h2>FXML CaptureSpectImage Controller</h2>
- * 
- * The controller class for <i>captureSpectImageFXML.fxml</i> document (via 
+ * <p>
+ * The controller class for <i>captureSpectImageFXML.fxml</i> document (via
  * {@code fx:controller} attribute).
  */
-
 public class CaptureSpectImageController implements Initializable {
-    
-    private AppModel _appModel;
 
-    @FXML private SplitMenuButton imageMenub, lightMenub;
-    
-    @FXML private ScrollBar integrateScroll;
-    
-    @FXML private TextField integrateScrollText;
-    
-    @FXML private Button applyButton, sendButton, exitButton;
+  private AppModel _appModel;
 
-    /**
-          * Initializes the controller class. 
-          * 
-          * This method is automatically called after the fxml file has been loaded.
-          */
-    @Override
-    public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
-        
-        _appModel = new AppModel();
+  @FXML
+  private SplitMenuButton imageMenub, lightMenub;
 
-        integrateScroll.valueProperty().addListener(
-            ( observable, oldvalue, newvalue ) ->
-            {        
-                double d = newvalue.doubleValue();
-                integrateScrollText.textProperty()
-                                   .setValue( Double.valueOf( String.format( "%.2f", 5.25 - d ))
-                                                                    .toString()
-                                            );
-            }
-        );
-    }
-    
-    @FXML private void imageTypeSelect( ActionEvent event ) {
+  @FXML
+  private ScrollBar integrateScroll;
 
-        MenuItem mi = ( MenuItem ) event.getSource();
-        
-        imageMenub.setText( mi.getText() );
-    }
-    
-    @FXML private void lampSelect( ActionEvent event ) {
+  @FXML
+  private TextField integrateScrollText;
 
-        MenuItem mi = ( MenuItem ) event.getSource();
-        
-        lightMenub.setText( mi.getText() );
+  @FXML
+  private Button applyButton, sendButton, exitButton;
+
+  /**
+   * Initializes the controller class.
+   * <p>
+   * This method is automatically called after the fxml file has been loaded.
+   */
+  @Override
+  public void initialize( URL locationUrl, ResourceBundle resourceBundle ) {
+
+    _appModel = new AppModel();
+
+    integrateScroll.valueProperty().addListener(
+        ( observable, oldvalue, newvalue )
+        -> {
+      double d = newvalue.doubleValue();
+      integrateScrollText.textProperty()
+          .setValue( Double.valueOf( String.format( "%.2f", 5.25 - d ) )
+              .toString()
+          );
     }
-    
-    @FXML private void handleApply( ActionEvent event ) {
-        
-        // Create a sorted map (sorted by key)
-        Map<String /*key*/, Object /*value*/> argsMap = new TreeMap<>();
-        
-        argsMap.put( "1integrationTime", Float.parseFloat( integrateScrollText.getText() /*float*/ ));
-        argsMap.put( "2imageType"      , imageMenub.getText() /*String*/ );
-        argsMap.put( "3lamp"           , lightMenub.getText() /*String*/ );
-        
-        System.out.println("");
-        argsMap.forEach( ( key, value ) -> System.out.println( key + ": " + value ));
-    }
-        
-    @FXML private void handleSend( ActionEvent event ) {
-        
-        // Create a sorted map (sorted by key)
-        Map<String /*key*/, Object /*value*/> argsMap = new TreeMap<>();
-        
-        argsMap.put( "1integrationTime", Float.parseFloat( integrateScrollText.getText() /*float*/ ));
-        argsMap.put( "2imageType"      , imageMenub.getText() /*String*/ );
-        argsMap.put( "3lamp"           , lightMenub.getText() /*String*/ );
-        
-        // 1. SalComponent (Receiver) previously defined: Executive.cscELE
-        
-        // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
-        // 2b. Also, assign topic & topic arguments
-        SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( EntityType.SEDSPECTROGRAPH.toString() ));
-        salCmd.setTopic( "captureSpectImage" );
-        salCmd.setTopicArgs( argsMap.values().toArray() );
-        
-        // 3a. Define Invoker w/ # of threads
-        // 3b. Set SalService request (a cmd in this case)
-        SalConnect salConnect = new SalConnect( 1 );
-        salConnect.setSalService( salCmd );
-        
-        // 4. Invoker indirectly calls cmd->execute()
-        salConnect.connect();
-    }
-        
-    @FXML private void handleExit( ActionEvent event ) throws Exception {
-        
-        CaptureSpectImageFX.getInstance().closeStage();
-    }
+    );
+  }
+
+  @FXML
+  private void imageTypeSelect( ActionEvent event ) {
+
+    MenuItem mi = (MenuItem) event.getSource();
+
+    imageMenub.setText( mi.getText() );
+  }
+
+  @FXML
+  private void lampSelect( ActionEvent event ) {
+
+    MenuItem mi = (MenuItem) event.getSource();
+
+    lightMenub.setText( mi.getText() );
+  }
+
+  @FXML
+  private void handleApply( ActionEvent event ) {
+
+    // Create a sorted map (sorted by key)
+    Map<String /*
+         * key
+         */, Object /*
+         * value
+         */> argsMap = new TreeMap<>();
+
+    argsMap.put( "1integrationTime", Float.parseFloat( integrateScrollText.getText() /*
+              * float
+              */ ) );
+    argsMap.put( "2imageType", imageMenub.getText() /*
+     * String
+     */ );
+    argsMap.put( "3lamp", lightMenub.getText() /*
+     * String
+     */ );
+
+    System.out.println( "" );
+    argsMap.forEach( ( key, value ) -> System.out.println( key + ": " + value ) );
+  }
+
+  @FXML
+  private void handleSend( ActionEvent event ) {
+
+    // Create a sorted map (sorted by key)
+    Map<String /*
+         * key
+         */, Object /*
+         * value
+         */> argsMap = new TreeMap<>();
+
+    argsMap.put( "1integrationTime", Float.parseFloat( integrateScrollText.getText() /*
+              * float
+              */ ) );
+    argsMap.put( "2imageType", imageMenub.getText() /*
+     * String
+     */ );
+    argsMap.put( "3lamp", lightMenub.getText() /*
+     * String
+     */ );
+
+    // 1. SalComponent (Receiver) previously defined: Executive.cscELE
+    // 2a. Define Concrete SalService (Cmd) for specific SalComponent (Rcr)
+    // 2b. Also, assign topic & topic arguments
+    SalCmd salCmd = new SalCmd( _appModel.getCscMap().get( EntityType.FIBERSPECTROGRAPH.toString() ) );
+    salCmd.setTopic( "captureSpectImage" );
+    salCmd.setTopicArgs( argsMap.values().toArray() );
+
+    // 3a. Define Invoker w/ # of threads
+    // 3b. Set SalService request (a cmd in this case)
+    SalConnect salConnect = new SalConnect( 1 );
+    salConnect.setSalService( salCmd );
+
+    // 4. Invoker indirectly calls cmd->execute()
+    salConnect.connect();
+  }
+
+  @FXML
+  private void handleExit( ActionEvent event ) throws Exception {
+
+    CaptureSpectImageFX.getInstance().closeStage();
+  }
 }

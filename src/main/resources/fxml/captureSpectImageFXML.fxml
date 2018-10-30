@@ -13,91 +13,91 @@
 <?import javafx.scene.text.Font?>
 
 <VBox id="captureSpectImageScene" fx:id="captureSpectImageScene" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="145.0" prefWidth="360.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.lsst.testing.app.gui.controllers.CaptureSpectImageController">
-   <children>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
-         <children>
-            <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Integration Time (sec)">
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <ScrollBar fx:id="integrateScroll" blockIncrement="0.25" max="5.0" maxHeight="-Infinity" maxWidth="-Infinity" min="0.25" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" style="-fx-border-style: solid; -fx-border-color: silver;" unitIncrement="0.01" value="5.0" visibleAmount="0.01" />
-            <TextField fx:id="integrateScrollText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="43.0" text="0.25">
-               <font>
-                  <Font size="11.0" />
-               </font>
-            </TextField>
-         </children>
-         <VBox.margin>
-            <Insets top="5.0" />
-         </VBox.margin>
-      </HBox>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
-         <children>
-            <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Image Type">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <SplitMenuButton fx:id="imageMenub" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="RIGHT" prefHeight="22.0" prefWidth="165.0" style="-fx-font-size: 11;" text="Standard Exposure">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#imageTypeSelect" text="Standard Exposure" />
-                <MenuItem mnemonicParsing="false" onAction="#imageTypeSelect" text="Bias" />
-                  <MenuItem mnemonicParsing="false" text="Flat-fielding" />
-                  <MenuItem mnemonicParsing="false" text="Polychromatic Flat-fielding" />
-              </items>
-            </SplitMenuButton>
-         </children>
-      </HBox>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
-         <children>
-            <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Light Type">
-               <padding>
-                  <Insets left="5.0" />
-               </padding>
-            </Label>
-            <SplitMenuButton fx:id="lightMenub" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="RIGHT" prefHeight="22.0" prefWidth="165.0" style="-fx-font-size: 11;" text="White">
-              <items>
-                <MenuItem mnemonicParsing="false" onAction="#lampSelect" text="White" />
-                <MenuItem mnemonicParsing="false" onAction="#lampSelect" text="UV" />
-                  <MenuItem mnemonicParsing="false" text="Near-IR" />
-              </items>
-            </SplitMenuButton>
-         </children>
-      </HBox>
-      <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="360.0">
-         <children>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="360.0">
-               <children>
-                  <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="360.0" />
-                  <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="360.0">
-                     <children>
-                        <Button fx:id="applyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleApply" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Apply">
-                           <HBox.margin>
-                              <Insets left="135.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="sendButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSend" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Send">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                        <Button fx:id="exitButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleExit" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Exit">
-                           <HBox.margin>
-                              <Insets left="10.0" />
-                           </HBox.margin>
-                        </Button>
-                     </children>
-                     <VBox.margin>
-                        <Insets top="2.0" />
-                     </VBox.margin>
-                  </HBox>
-               </children>
-            </VBox>
-         </children>
-      </HBox>
-   </children>
+    <children>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
+            <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Integration Time (sec)">
+                    <HBox.margin>
+                        <Insets />
+                    </HBox.margin>
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <ScrollBar fx:id="integrateScroll" blockIncrement="0.25" max="5.0" maxHeight="-Infinity" maxWidth="-Infinity" min="0.25" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="122.0" style="-fx-border-style: solid; -fx-border-color: silver;" unitIncrement="0.01" value="5.0" visibleAmount="0.01" />
+                <TextField fx:id="integrateScrollText" minHeight="-Infinity" minWidth="-Infinity" prefHeight="22.0" prefWidth="43.0" text="0.25">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </TextField>
+            </children>
+            <VBox.margin>
+                <Insets top="5.0" />
+            </VBox.margin>
+        </HBox>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
+            <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Image Type">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <SplitMenuButton fx:id="imageMenub" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="RIGHT" prefHeight="22.0" prefWidth="165.0" style="-fx-font-size: 11;" text="Standard Exposure">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#imageTypeSelect" text="Standard Exposure" />
+                        <MenuItem mnemonicParsing="false" onAction="#imageTypeSelect" text="Bias" />
+                        <MenuItem mnemonicParsing="false" text="Flat-fielding" />
+                        <MenuItem mnemonicParsing="false" text="Polychromatic Flat-fielding" />
+                    </items>
+                </SplitMenuButton>
+            </children>
+        </HBox>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="30.0" prefWidth="360.0">
+            <children>
+                <Label minHeight="-Infinity" minWidth="-Infinity" prefHeight="18.0" prefWidth="195.0" style="-fx-font-size: 12;" text="Light Type">
+                    <padding>
+                        <Insets left="5.0" />
+                    </padding>
+                </Label>
+                <SplitMenuButton fx:id="lightMenub" alignment="CENTER" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" popupSide="RIGHT" prefHeight="22.0" prefWidth="165.0" style="-fx-font-size: 11;" text="White">
+                    <items>
+                        <MenuItem mnemonicParsing="false" onAction="#lampSelect" text="White" />
+                        <MenuItem mnemonicParsing="false" onAction="#lampSelect" text="UV" />
+                        <MenuItem mnemonicParsing="false" text="Near-IR" />
+                    </items>
+                </SplitMenuButton>
+            </children>
+        </HBox>
+        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="56.0" prefWidth="360.0">
+            <children>
+                <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="10.0" prefWidth="360.0">
+                    <children>
+                        <Separator minHeight="-Infinity" minWidth="-Infinity" prefHeight="15.0" prefWidth="360.0" />
+                        <HBox minHeight="-Infinity" minWidth="-Infinity" prefHeight="34.0" prefWidth="360.0">
+                            <children>
+                                <Button fx:id="applyButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleApply" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Apply">
+                                    <HBox.margin>
+                                        <Insets left="135.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <Button fx:id="sendButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSend" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Send">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                                <Button fx:id="exitButton" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleExit" prefHeight="22.0" prefWidth="65.0" style="-fx-font-size: 11;" text="Exit">
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </Button>
+                            </children>
+                            <VBox.margin>
+                                <Insets top="2.0" />
+                            </VBox.margin>
+                        </HBox>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+    </children>
 </VBox>

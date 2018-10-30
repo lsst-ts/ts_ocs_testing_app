@@ -29,79 +29,86 @@ import javafx.concurrent.Task;
 
 /**
  * <h2>SAL Connect</h2>
- *
+ * <p>
  * {@code SalConnect} is the Invoker class in the command pattern
  */
 public class SalConnect implements DomainObject {
 
-    @Override public String getName () { return "SalConnect"; }
+  @Override
+  public String getName() {
+    return "SalConnect";
+  }
 
-    /* Command Pattern: command infc object */
-    private SalService _salService;
-    
-    private final BlockingQueue<SalService> _salServiceQ;
-    private final ObservableList<Task<Void>> _salServiceTasksList;
-    private final int _numTasks;
+  /*
+   * Command Pattern: command infc object
+   */
+  private SalService _salService;
 
-    public void setSalService( SalService salService ) {
+  private final BlockingQueue<SalService> _salServiceQ;
+  private final ObservableList<Task<Void>> _salServiceTasksList;
+  private final int _numTasks;
 
-        try {
-            _salServiceQ.put( salService );
-        } catch ( Exception e ) {
-            e.printStackTrace( out.printf( 
-                this.getName() + "interrupted from SalCmd.execute()" ));
+  public void setSalService( SalService salService ) {
+
+    try {
+      _salServiceQ.put( salService );
+    } catch ( Exception e ) {
+      e.printStackTrace( out.printf(
+          this.getName() + "interrupted from SalCmd.execute()" ) );
+    }
+  }
+
+  public SalConnect( int numTasks ) {
+
+    _numTasks = numTasks;
+    _salServiceQ = new LinkedBlockingQueue<>();
+    _salServiceTasksList = FXCollections.observableArrayList();
+  }
+
+  public void connect() {
+
+    ExecutorService es = Executors.newFixedThreadPool( _numTasks );
+
+    int ndx;
+    for ( ndx = 0; ndx < _numTasks; ndx++ ) {
+
+      _salServiceTasksList.add( new Task<Void>() {
+
+        @Override
+        protected Void call() {
+          while ( !( _salServiceQ.isEmpty() ) ) {
+
+            _salService = _salServiceQ.poll();
+
+            /*
+             * Command Pattern: commandIF.execute()
+             */
+            _salService.execute(); // indirectly calls: command.execute() [e.g. salCmd.execute()]
+          }
+
+          return null;
         }
+      } );
+
+      es.submit( _salServiceTasksList.get( ndx ) );
     }
 
-    public SalConnect( int numTasks ) {
-        
-        _numTasks = numTasks;
-        _salServiceQ = new LinkedBlockingQueue<>();
-        _salServiceTasksList = FXCollections.observableArrayList();
-    }
+    // Loop through all tasks to check if runnung
+    _salServiceTasksList.forEach( ( Task<Void> task ) -> {
 
-    public void connect () {
+      synchronized ( new Object() ) {
 
-        ExecutorService es = Executors.newFixedThreadPool( _numTasks );
+        while ( task.isRunning() ) {
 
-        int ndx;
-        for ( ndx = 0; ndx < _numTasks; ndx++ ) {
-            
-            _salServiceTasksList.add( new Task<Void>() {
-
-                @Override
-                protected Void call () {
-                    while ( !( _salServiceQ.isEmpty() )) {
-                        
-                        _salService = _salServiceQ.poll();
-
-                        /* Command Pattern: commandIF.execute() */
-                        _salService.execute(); // indirectly calls: command.execute() [e.g. salCmd.execute()]
-                    }
-
-                    return null;
-                }
-            });
-
-            es.submit( _salServiceTasksList.get( ndx ));
+          try {
+            Thread.sleep( 3 );
+          } catch ( InterruptedException e ) {
+            e.printStackTrace();
+          }
         }
+      }
+    } );
 
-        // Loop through all tasks to check if runnung
-        _salServiceTasksList.forEach( ( Task<Void> task ) -> {
-            
-            synchronized ( new Object() ) {
-                
-                while ( task.isRunning() ) {
-                    
-                    try {
-                        Thread.sleep( 3 );
-                    } catch ( InterruptedException e ) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
-
-        es.shutdown();
-    }
+    es.shutdown();
+  }
 }

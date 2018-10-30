@@ -58,7 +58,7 @@
 
     -fx-background-color: #1d1d1d;
 
-     -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
     -fx-font-size: 11pt;
     -fx-text-fill: #d8d8d8;
 }
@@ -69,8 +69,8 @@
 
 .button:pressed, .button:default:hover:pressed
 {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+    -fx-background-color: white;
+    -fx-text-fill: #1d1d1d;
 }
 
 .button:focused
@@ -210,10 +210,10 @@
 }
 
 .check-box:indeterminate > .box > .mark {
-   -fx-background-color: black;
-   -fx-background-insets: 2.8;
-   -fx-padding:7px;
-   -fx-shape: null;
+    -fx-background-color: black;
+    -fx-background-insets: 2.8;
+    -fx-padding:7px;
+    -fx-shape: null;
 }
 
 .check-box:disabled
@@ -251,14 +251,14 @@
 }
 
 .radio-button > .radio  {
-   -fx-background-color: #cfcfcf;
-   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+    -fx-background-color: #cfcfcf;
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-background-insets: 0;
 
-   -fx-border-radius: 1.0em;
-   -fx-border-color: #cfcfcf;
+    -fx-border-radius: 1.0em;
+    -fx-border-color: #cfcfcf;
 
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
+    -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
 }
 
 .radio-button:hover > .radio {
@@ -267,14 +267,14 @@
 }
 
 .radio-button > .radio > .dot {
-   -fx-background-color: transparent;
-   -fx-background-insets: 0;
-   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-padding: 6px; /* 3 -- radius of the inner black dot when selected */
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-padding: 6px; /* 3 -- radius of the inner black dot when selected */
 }
 
 .radio-button:selected > .radio > .dot {
-   -fx-background-color: #212121;
+    -fx-background-color: #212121;
 }
 
 .radio-button:disabled
@@ -296,17 +296,17 @@
 
 .radio-button:focused > .radio
 {
-   -fx-background-color: #cfcfcf;
-   -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
-   -fx-background-insets: 0;
+    -fx-background-color: #cfcfcf;
+    -fx-background-radius: 1.0em; /* large value to make sure this remains circular */
+    -fx-background-insets: 0;
 
-   -fx-border-style: solid, segments(1, 2);
-   -fx-border-radius: 1.0em, 0;
-   -fx-border-color: #cfcfcf, white;
-   -fx-border-insets: 0px, -2px;
-   -fx-border-width: 1px, 1px;
+    -fx-border-style: solid, segments(1, 2);
+    -fx-border-radius: 1.0em, 0;
+    -fx-border-color: #cfcfcf, white;
+    -fx-border-insets: 0px, -2px;
+    -fx-border-width: 1px, 1px;
 
-   -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
+    -fx-padding: 4px; /* 4 -- padding from outside edge to the inner black dot */
 }
 
 .radio-button:focused:hover > .radio
@@ -386,8 +386,8 @@
 
 
 .menu-item:focused {
-     -fx-background: -fx-accent;
-     -fx-background-color: #dedede;
+    -fx-background: -fx-accent;
+    -fx-background-color: #dedede;
 }
 
 .menu-item:pressed

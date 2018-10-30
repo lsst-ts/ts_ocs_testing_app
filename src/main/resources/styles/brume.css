@@ -1,7 +1,7 @@
 /**
  * JavaFX CSS Brume, light grey/white theme.
  */
- 
+
 .titled-pane {
     -fx-effect: dropshadow(three-pass-box, #9F9F9F, 15, 0, 0, 0);
     -fx-animated: true;
@@ -12,25 +12,25 @@
     -fx-background-radius: 0, 0, 0;
     -fx-font: bold 14px System;
     -fx-padding: 0.3em 0.833333em 0.35em 0.833333em;
-    
+
     /* stop the background from being blue on focus */
     -fx-background-color: ladder(
-            red,
-            black 20%,
-            derive(#d0d0d0,-30%) 30%
+        red,
+        black 20%,
+        derive(#d0d0d0,-30%) 30%
         ), 
         linear-gradient(
         to bottom,
-            ladder(#d0d0d0, 
-                derive(#d0d0d0,80%) 60%, 
-                white 82%) 0%,
-            ladder(#d0d0d0, 
-                derive(#d0d0d0,20%) 10%, 
-                derive(#d0d0d0,-10%) 80%) 100%
+        ladder(#d0d0d0, 
+        derive(#d0d0d0,80%) 60%, 
+        white 82%) 0%,
+        ladder(#d0d0d0, 
+        derive(#d0d0d0,20%) 10%, 
+        derive(#d0d0d0,-10%) 80%) 100%
         ), linear-gradient(
-            to bottom,
-            derive(#d0d0d0,34%) 0%,
-            derive(#d0d0d0,-18%) 100%
+        to bottom,
+        derive(#d0d0d0,34%) 0%,
+        derive(#d0d0d0,-18%) 100%
         );
 }
 
@@ -80,20 +80,20 @@
 }
 
 .combo-box .list-cell {
-     /* -fx-padding: 6 6 6 6; */
+    /* -fx-padding: 6 6 6 6; */
 }
 
 /* make the tooltip a slightly transparent black rectange with white text */
 .tooltip {
     -fx-background-color: black;
-	-fx-opacity: 0.6;
+    -fx-opacity: 0.6;
     -fx-background-insets: 0,1,2;
     -fx-background-radius: 0;
     -fx-padding: 0.333333em 0.666667em 0.333333em 0.666667em; /* 4 8 4 8 */
-	-fx-wrap-text:false;
+    -fx-wrap-text:false;
 }
 .tooltip .label {
-	-fx-text-fill: white;
+    -fx-text-fill: white;
 }
 /* remove the turned page effect */
 .page-corner {
@@ -112,6 +112,6 @@
 }
 
 .choice-box {
-	/* TODO add padding */
+    /* TODO add padding */
     -fx-background-radius: 0;
 }

@@ -32,97 +32,103 @@ import javafx.stage.WindowEvent;
 
 /**
  * <h2>AppModel FX</h2>
- *
+ * <p>
  * The {@code AppFX} class is the entry point of this JavaFX application.
  */
 public class AppFX extends Application {
 
-    private PrimaryController controller;
-    private Alert confirmQuitAlert;
-    
-    /**
-          * The {@code start()} method is the main entry point for all JavaFX  applications
-          */
-    @Override
-    public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
-        
-        ////////////////////////////////////////////
-        /// Load fxml configuration file
-        ////////////////////////////////////////////
-        String fxmlFile = "/fxml/primaryFXML.fxml";
-        FXMLLoader loader = new FXMLLoader();
-        Parent rootBorderPane = (Parent) loader.load( 
-            getClass().getResourceAsStream( fxmlFile ));
+  private PrimaryController controller;
+  private Alert confirmQuitAlert;
 
-        // Give the controller access to the main app.
-        controller = loader.getController();
+  /**
+   * The {@code start()} method is the main entry point for all JavaFX applications
+   */
+  @Override
+  public void start( Stage primaryStage ) throws Exception { // Stage class is the top-level JavaFX container
 
-        //////////////////////////////////////////////////////////
-        // Create the Scene using the loaded Pane
-        //////////////////////////////////////////////////////////
-        Scene scene = new Scene( rootBorderPane );
+    ////////////////////////////////////////////
+    /// Load fxml configuration file
+    ////////////////////////////////////////////
+    String fxmlFile = "/fxml/primaryFXML.fxml";
+    FXMLLoader loader = new FXMLLoader();
+    Parent rootBorderPane = (Parent) loader.load(
+        getClass().getResourceAsStream( fxmlFile ) );
 
-        /* Set the Scene to the Stage, set the Stage Title, disable window resizing  & display the Stage */
-        primaryStage.setScene( scene );
-        primaryStage.setTitle( "Testing App EUI" );
-        primaryStage.setResizable( false );
-        primaryStage.show();
+    // Give the controller access to the main app.
+    controller = loader.getController();
 
-        /* exit all secondary windows when primary window close for the 'X' close button*/
-        primaryStage.setOnCloseRequest( ( WindowEvent we ) -> {
-            
-            confirmQuitAlert = new Alert( Alert.AlertType.CONFIRMATION );
-            confirmQuitAlert.setTitle( "Remember to save your files!" );
-            confirmQuitAlert.setHeaderText( "Quit?" );
-            confirmQuitAlert.setContentText( "Do you really want to quit?" );
+    //////////////////////////////////////////////////////////
+    // Create the Scene using the loaded Pane
+    //////////////////////////////////////////////////////////
+    Scene scene = new Scene( rootBorderPane );
 
-            ButtonType quitButton   = new ButtonType( "Quit" );
-            ButtonType cancelButton = new ButtonType( "Cancel", 
-                                                      ButtonBar.ButtonData.CANCEL_CLOSE );
+    /*
+     * Set the Scene to the Stage, set the Stage Title, disable window resizing & display the Stage
+     */
+    primaryStage.setScene( scene );
+    primaryStage.setTitle( "Testing App EUI" );
+    primaryStage.setResizable( false );
+    primaryStage.show();
 
-            confirmQuitAlert.initModality( Modality.APPLICATION_MODAL );
-            //confirmQuitAlert.initOwner(getPrimaryStage());
-            //confirmQuitAlert.initOwner( pStage );
-            confirmQuitAlert.getButtonTypes().setAll( quitButton, cancelButton );
+    /*
+     * exit all secondary windows when primary window close for the 'X' close button
+     */
+    primaryStage.setOnCloseRequest( ( WindowEvent we ) -> {
 
-            Optional<ButtonType> result = confirmQuitAlert.showAndWait();
+      confirmQuitAlert = new Alert( Alert.AlertType.CONFIRMATION );
+      confirmQuitAlert.setTitle( "Remember to save your files!" );
+      confirmQuitAlert.setHeaderText( "Quit?" );
+      confirmQuitAlert.setContentText( "Do you really want to quit?" );
 
-            if ( result.get() == quitButton ) {
-                
-                Platform.exit();
-                
-                System.exit( 0 );
-            } else {
-                // cancel the close request by consuming the event
-                we.consume();
-            }            
-        });
-    }
+      ButtonType quitButton = new ButtonType( "Quit" );
+      ButtonType cancelButton = new ButtonType( "Cancel",
+                                                ButtonBar.ButtonData.CANCEL_CLOSE );
 
-    /**
-          * Overriding {@code stop()} method to add {@code System.exit()} so ALL
-          * threads (JavaFX and non Java-FX threads) will be terminated when clicking
-          * 'x' on the {@code primaryStage} window.
-          */
-    @Override
-    public void stop() throws Exception {
-        
-        // Terminates the JavaFX Application & Launcher threads
+      confirmQuitAlert.initModality( Modality.APPLICATION_MODAL );
+      //confirmQuitAlert.initOwner(getPrimaryStage());
+      //confirmQuitAlert.initOwner( pStage );
+      confirmQuitAlert.getButtonTypes().setAll( quitButton, cancelButton );
+
+      Optional<ButtonType> result = confirmQuitAlert.showAndWait();
+
+      if ( result.get() == quitButton ) {
+
         Platform.exit();
 
-        // Terminates the current JVM (basically killing non-JavaFX threads)
         System.exit( 0 );
-    }
+      } else {
+        // cancel the close request by consuming the event
+        we.consume();
+      }
+    } );
+  }
 
-    /**
-          * This is the {@code main()} method which launches the application using  the {@code launch()} method.
-          * <p>
-          * The {@code launch()} method internally calls the {@code start()} method of the {@link Application} class.
-          *
-          * @param args n/a
-          */
-    public static void main( String[] args ) {
+  /**
+   * Overriding {@code stop()} method to add {@code System.exit()} so ALL
+   * threads (JavaFX and non Java-FX threads) will be terminated when clicking
+   * 'x' on the {@code primaryStage} window.
+   */
+  @Override
+  public void stop() throws Exception {
 
-        launch( args );
-    }
+    // Terminates the JavaFX Application & Launcher threads
+    Platform.exit();
+
+    // Terminates the current JVM (basically killing non-JavaFX threads)
+    System.exit( 0 );
+  }
+
+  /**
+   * This is the {@code main()} method which launches the application using the {@code launch()}
+   * method.
+   * <p>
+   * The {@code launch()} method internally calls the {@code start()} method of the
+   * {@link Application} class.
+   *
+   * @param args n/a
+   */
+  public static void main( String[] args ) {
+
+    launch( args );
+  }
 }
